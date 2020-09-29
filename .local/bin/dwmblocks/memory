@@ -1,0 +1,11 @@
+#!/bin/sh
+
+case $BLOCK_BUTTON in
+	1) notify-send -i " "  " Memory hogs" "$(ps axch -o cmd:15,%mem --sort=-%mem | head)" ;;
+	2) setsid -f "$TERMINAL" -e bashtop ;;
+	3) setsid -f "$TERMINAL" -e htop ;;
+	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+# echo " $(free -m | awk '/^Mem:/ {printf "%.2fG/%.2fG",($3/1024),($2/1024)}')"
+echo " $(free -m | awk '/^Mem:/ {printf "%.2fG",($3/1024)}')"

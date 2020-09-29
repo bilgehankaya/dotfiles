@@ -1,0 +1,16 @@
+#!/bin/sh
+
+keyboard_toggle(){
+  [ "$(setxkbmap -query | awk 'NR==3{print $2}')" = "tr" ] && setxkbmap us || setxkbmap tr
+  pkill -RTMIN+25 "${STATUSBAR:-dwmblocks}";
+}
+
+case $BLOCK_BUTTON in
+	1) keyboard_toggle ;;
+	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+case $1 in
+	-s|--status) echo "" "$(setxkbmap -query | awk 'NR==3{print $2}')" ;;
+	-t|--toggle) keyboard_toggle ;;
+esac

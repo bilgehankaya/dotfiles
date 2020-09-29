@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# jq package needed --> pacman -S jq
+
+get_prices() {
+ping -q -c 1 1.1.1.1 >/dev/null 2>&1 || exit
+
+json="$(curl -s -X GET 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cethereum&vs_currencies=usd' -H 'accept: application/json')"
+
+echo $json | jq '.bitcoin.usd' > ~/.cache/btc
+echo $json | jq '.ethereum.usd' > ~/.cache/eth
+
+[ "$(pgrep -x dwm)" ] && pkill -RTMIN+13 dwmblocks || polybar-msg hook crypto 1
+}
+
+case $BLOCK_BUTTON in
+	1) setsid -f "$TERMINAL" -e cointop ;;
+	2) get_prices && notify-send -u low "Crypto" "Prices updated\!" -i "~/.config/dunst/bitcoin.svg" ;;
+	3) $BROWSER https://www.coingecko.com/en ;;
+	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+case $1 in
+	eth) printf " \$%.2f" "$(cat ~/.cache/$1)" ;;
+	btc) printf " \$%.2f" "$(cat ~/.cache/$1)" ;;
+	--refresh|-r) get_prices ;;
+esac

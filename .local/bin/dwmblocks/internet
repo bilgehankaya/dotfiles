@@ -1,0 +1,12 @@
+#!/bin/sh
+
+case $BLOCK_BUTTON in
+	1) "$TERMINAL" -e nmtui; pkill -RTMIN+4 dwmblocks ;;
+	3) vpn --toggle ;;
+	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+case "$(cat /sys/class/net/w*/operstate 2>/dev/null)" in
+	down) echo " No" ;;
+	up) echo  $(awk '/^\s*w/ { print "", int($3 * 100 / 70) "% " }' /proc/net/wireless) ;;
+esac

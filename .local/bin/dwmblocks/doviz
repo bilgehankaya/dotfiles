@@ -1,0 +1,19 @@
+#!/bin/sh
+
+
+get_currencies() {
+ping -q -c 1 1.1.1.1 >/dev/null 2>&1 || exit
+
+html="$(curl -s 'https://altin.doviz.com/gram-altin/isbankasi' | grep  -m3 '<span class="value">' | grep -Eo '?[0-9]+([,][0-9]+)?') "
+
+echo $html | awk 'NR==1{print $1}' | sed 's/,/./g' > ~/.cache/gold
+echo $html | awk 'NR==1{print $2}' | sed 's/,/./g' > ~/.cache/usd
+echo $html | awk 'NR==1{print $3}' | sed 's/,/./g' > ~/.cache/euro
+}
+
+
+case $1 in
+	-r) get_currencies ;;
+esac
+
+printf "%.2f %.2f %.2f" "$(cat ~/.cache/usd)" "$(cat ~/.cache/euro)" "$(cat ~/.cache/gold)"

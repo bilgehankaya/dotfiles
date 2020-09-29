@@ -1,0 +1,6 @@
+#!/bin/bash
+# [ "$(stat -c %y ~/.cache/weather 2>/dev/null | cut -b 1-10)" != "$(date '+%Y-%m-%d')" ] &&
+ping -q -c 1 1.1.1.1 > /dev/null || exit
+curl -s 'wttr.in/izmir?format=%C+%t' > ~/.cache/weather
+
+# cat ~/.cache/weather

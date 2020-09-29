@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cur=$(date "+ %H:%M")
+
+notify-send -u normal -t 9000  "    $cur" " Break Time"

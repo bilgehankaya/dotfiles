@@ -1,0 +1,120 @@
+#!/bin/bash
+
+declare options=("bspwm
+alacritty
+dmenu
+dunst
+dwm
+dwmblocks
+nvim
+polybar
+qutebrowser
+st
+sxhkd
+xresources
+kitty
+zsh
+ranger
+newsboat
+zathura
+alias
+lf
+mpd
+mpv
+tmux
+xinitrc
+xprofile
+quit")
+
+choice=$(echo -e "${options[@]}" | dmenu -i -p 'Edit config file: ')
+
+case "$choice" in
+	quit)
+		echo "Program terminated." && exit 1
+	;;
+	alias)
+		choice="$HOME/.config/aliasrc"
+	;;
+	alacritty)
+		choice="$HOME/.config/alacritty/alacritty.yml"
+	;;
+	bspwm)
+		choice="$HOME/.config/bspwm/bspwmrc"
+	;;
+	dmenu)
+		choice="$HOME/.local/src/dmenu/config.h"
+	;;
+	dunst)
+		choice="$HOME/.config/dunst/dunstrc"
+	;;
+	dwm)
+		choice="$HOME/.local/src/dwm/config.h"
+	;;
+	dwmblocks)
+		choice="$HOME/.local/src/dwmblocks/config.h"
+	;;
+
+	i3)
+		choice="$HOME/.config/i3/config"
+	;;
+	nvim)
+		choice="$HOME/.config/nvim/init.vim"
+	;;
+	lf)
+		st -e lf "$HOME/.config/lf" ; exit
+	;;
+	newsboat)
+		choice="$HOME/.config/newsboat/config"
+	;;
+	polybar)
+		choice="$HOME/.config/polybar/config"
+	;;
+	qtile)
+		choice="$HOME/.config/qtile/config.py"
+	;;
+	qutebrowser)
+		choice="$HOME/.config/qutebrowser/config.py"
+	;;
+	ranger)
+		st -e lf "$HOME/.config/ranger" ; exit
+	;;
+	st)
+		choice="$HOME/.local/src/st/config.h"
+	;;
+	sxhkd)
+		choice="$HOME/.config/sxhkd/sxhkdrc"
+	;;
+	xresources)
+		choice="$HOME/.config/Xresources"
+	;;
+	kitty)
+		choice="$HOME/.config/kitty/kitty.conf"
+	;;
+	zathura)
+		choice="$HOME/.config/zathura/zathurarc"
+	;;
+	zsh)
+		choice="$HOME/.config/zsh/.zshrc"
+	;;
+	mpd)
+		choice="$HOME/.config/mpd/mpd.conf"
+	;;
+	mpv)
+		choice="$HOME/.config/mpv/input.conf"
+	;;
+	tmux)
+		choice="$HOME/.config/tmux/tmux.conf"
+	;;
+	xinitrc)
+		choice="$HOME/.config/xinitrc"
+	;;
+	xprofile)
+		choice="$HOME/.xprofile"
+	;;
+
+	*)
+		exit 1
+	;;
+esac
+
+$TERMINAL -e nvim "$choice"

@@ -1,0 +1,8 @@
+#!/bin/zsh
+
+curr="$(mpc status)"
+artist="$(echo $curr | head -n 1| cut -d '-' -f1)"
+song="$(echo $curr | head -n 1 | cut -d '-' -f2)"
+time="$(echo $curr | grep "%)" | awk '{ print $3 }')"
+[ "$curr" ] && notify-send -u  low " $artist" "$song\n $time" -i "~/.config/dunst/music.jpg" ||
+	notify-send -u  low "Music Player" " Empty playlist!" -i "~/.config/dunst/music.jpg"

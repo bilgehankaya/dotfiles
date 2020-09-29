@@ -1,0 +1,8 @@
+#!/bin/sh
+
+kur="$(curl -s 'https://kur.doviz.com/isbankasi' | grep  -m2 '<td class="text-bold">' | grep -Eo '?[0-9]+([,][0-9]+)?')"
+
+sell="$(echo $kur | awk 'NR==1{print $1}' | sed 's/,/./g')"
+buy="$(echo $kur | awk 'NR==1{print $2}' | sed 's/,/./g')"
+
+printf "  %.2f TL %.2f TL" $(echo "$sell" | bc -l)  $(echo "$buy" | bc -l)

@@ -1,0 +1,15 @@
+#!/bin/sh
+
+case $BLOCK_BUTTON in
+	1) setsid -f "$TERMINAL" -e ssh root@www.bilgehankaya.xyz ;;
+	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+name="header" # Vpn name
+stat="$(pgrep -x openvpn)"
+
+case $1 in
+	--status|-s) [ $stat ] && echo " DE" ;;
+	--toggle|-t) [ $stat ] && nmcli connection down $name || nmcli connection up $name
+		     sleep  1 ; [ "$(pgrep -x dwm)" ] && kill -53 $(pidof dwmblocks) ;;
+esac

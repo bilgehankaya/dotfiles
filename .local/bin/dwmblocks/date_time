@@ -1,0 +1,12 @@
+#!/bin/sh
+
+case $BLOCK_BUTTON in
+	1) setsid -f "$TERMINAL" -e calcurse -D ~/.config/calcurse ;;
+	3) setsid -f "$TERMINAL" -e newsboat ;;
+	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+case $1 in
+	-d) date '+ %a, %d %B' ;;
+	-c) date '+ %R' ;;
+esac

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+case $BLOCK_BUTTON in
+	4) xbacklight -inc 10 ;;
+	5) xbacklight -dec 10 ;;
+	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+bat="$(cat /sys/class/power_supply/BAT0/capacity)"
+state="$(cat /sys/class/power_supply/BAT0/status)"
+
+[ "$state" = "Discharging" ] && icon='' || icon=''
+
+echo "$icon $bat%"

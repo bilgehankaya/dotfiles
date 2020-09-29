@@ -1,0 +1,10 @@
+#!/bin/sh
+
+cmds="\
+ restart bar		reloadpolybar
+ restart bspwm		bspc wm -r
+ restart sxhkd		pkill -USR1 -x sxhkd"
+
+choice="$(echo "$cmds" | cut -d'	' -f 1 | dmenu)" || exit 1
+
+`echo "$cmds" | grep "^$choice	" | cut -d '	' -f2-`
