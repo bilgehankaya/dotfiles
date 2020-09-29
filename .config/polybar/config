@@ -1,0 +1,256 @@
+[colors]
+blue = ${xrdb:color12:#83a598}
+rdL = #222222
+nordD = #000000
+background = ${colors.norD}
+foreground = #FFF0F5
+purple = #D8DEE9
+nordL = #3B4252
+red = #bd2c40
+dwm = #da1657
+
+[bar/bar]
+;monitor = ${env:MONITOR:LVDS-1}
+;monitor = ${env:MONITOR:HDMI-1}
+enable-ipc = true
+background = ${colors.nordD}
+foreground = ${colors.purple}
+width = 100%
+height = 24
+fixed-center = false
+line-size = 3
+border-size = 0
+padding-left = 0
+padding-right = 0
+module-margin-left = 0
+module-margin-right = 2
+
+font-0 = JetBrainsMonoMedium:pixelsize=11;3
+font-1 = HackNerdFont:pixelsize=10;
+font-2 = NotoColorEmoji:fontformat=truetype:scale=10:antialias=false;2
+font-3 = Symbola:pixelsize=5;1
+font-4 = FontAwesome5Free:style=Solid:size=9;2
+font-5 = FontAwesome5Free:style=Regular:size=19;0
+font-6 = FontAwesome5Brands:style=Regular:size=11;3
+
+modules-left = bspwm xwindow
+;modules-center =
+;modules-right = vpn usdt crypto cmus volume date battery xkeyboard
+modules-right = net torrent vpn  mem volume date battery keyboard
+tray-position = right
+tray-padding = 0
+tray-spacing = 0
+
+wm-restack = bspwm
+scroll-up = bspwm-desknext
+scroll-down = bspwm-deskprev
+
+[module/bspwm]
+type = internal/bspwm
+pin-workspaces = true
+enable-scroll = true
+label-focused = %name%
+label-focused-background = #da1657
+label-focused-foreground =  ${colors.purple}
+label-focused-padding = 1
+label-occupied = %name%
+label-occupied-padding = 1
+label-urgent = %name%
+label-urgent-foreground = ${colors.purple}
+label-urgent-background = #da1657
+label-urgent-padding = 1
+label-empty =
+scroll-up = bspwm-desknext
+scroll-down = bspwm-deskprev
+
+[module/mpd]
+type = internal/mpd
+exec_if = "mpc current"
+format-online = <icon-seekb> <toggle> <label-song>
+icon-play = 
+icon-pause = 
+icon-stop = ⏹
+icon-prev = ⏮
+icon-next = ⏭
+icon-seekb =
+icon-seekf = ⏩
+icon-random = 🔀
+icon-repeat = 🔁
+icon-repeatone = 🔂
+icon-single = 🔂
+icon-consume = ✀
+format-online-click-left = $TERMINAL -e ncmpcpp
+click-right = mpc toggle
+label-song = %artist% - %title%
+label-song-maxlen = 70
+label-song-ellipsis = true
+format-online-padding = 0
+format-online-spacing = 0
+
+[module/cmus]
+type = custom/script
+exec-if = pgrep -x cmus
+exec = ~/.config/polybar/scripts/cmus
+click-left = cmus-remote --pause &
+scroll-up = cmus-remote --volume +5%
+scroll-down = cmus-remote --volume -5%
+interval = 1
+format-background = ${colors.rdL}
+
+[module/date]
+type = custom/script
+exec = date '+  %B %d (%a)  %R '
+click-left = $TERMINAL -e calcurse -D ~/.config/calcurse
+interval = 60
+format-underline =  ${colors.dwm}
+format-background = ${colors.rdL}
+
+[module/volume]
+type = internal/pulseaudio
+sink = alsa_output.pci-0000_12_00.3.analog-stereo
+use-ui-max = true
+interval = 5
+left-click = pulsemixer &
+format-volume-padding = 1
+format-muted-padding = 1
+format-volume = <ramp-volume> <label-volume>
+format-muted = <label-muted>
+label-muted =  %percentage%%
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+format-volume-underline = ${colors.dwm}
+format-muted-underline = ${colors.dwm}
+format-muted-background = ${colors.rdL}
+format-volume-background = ${colors.rdL}
+
+[module/battery]
+type = custom/script
+exec = battery
+interval = 20
+format-padding = 1
+format-underline =  ${colors.dwm}
+format-background = ${colors.rdL}
+
+[module/bluetooth]
+type = custom/script
+exec = ~/.local/bin/statusbar/bluetooth
+tail = true
+click-left = ~/.local/bin/statusbar/bluetooth --toggle &
+format-background = ${colors.rdL}
+
+[module/izmir]
+type = custom/ipc
+hook-0 = cat ~/.cache/weather
+initial = 1
+format-padding = 1
+click-left = $BROWSER http://wttr.in/izmir &
+format-underline =  ${colors.dwm}
+format-background = ${colors.rdL}
+
+[module/usdt]
+type = custom/script
+interval = 60
+exec = dolar
+click-left = $BROWSER https://pro.btcturk.com/en/pro/exchange/USDT_TRY &
+format-underline =  ${colors.dwm}
+format-background = ${colors.rdL}
+
+[module/crypto]
+type = custom/ipc
+hook-0 = echo " $(cat ~/.cache/btc) " " $(cat ~/.cache/eth)"
+format-padding = 1
+;exec = ~/.config/polybar/scripts/ETH all
+click-left = $BROWSER https://www.coingecko.com/en &
+initial = 1
+format-underline =  ${colors.dwm}
+format-background = ${colors.rdL}
+
+[module/vpn]
+type = custom/script
+interval = 5
+exec = vpn -s
+click-left = vpn -t
+format-padding = 1
+format-underline =  ${colors.dwm}
+format-background = ${colors.rdL}
+
+[module/mem]
+type = custom/script
+exec = memory
+;exec = echo "  $(free -h --si | awk '/^Mem:/ {print $3"/" $2}')"
+interval = 3
+click-left = $TERMINAL -e htop
+format-padding = 1
+format-underline =  ${colors.dwm}
+format-background = ${colors.rdL}
+
+[module/torrent]
+type = custom/script
+exec-if = pgrep -x transmission-da
+exec = torrent
+interval = 20
+format-padding = 1
+click-left = $TERMINAL -e tremc
+format-underline =  ${colors.dwm}
+format-background = ${colors.rdL}
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+blacklist-1 = scroll lock
+format-xkeybord = <label-space> <label-layout>
+label-layout =  %layout%
+format-xkeybord-click-left = keyboard -t
+format-prefix = " "
+format-underline =  ${colors.dwm}
+format-background = ${colors.rdL}
+
+[module/keybr]
+type = custom/script
+exec = keyboard -s
+interval = 5
+click-left = keyboard -t ; relobadpolybar
+format-underline =  ${colors.dwm}
+format-background = ${colors.rdL}
+
+
+[module/internet]
+type = custom/script
+exec = internet
+interval = 5
+click-left = $TERMINAL -e nmtui
+format-underline =  ${colors.dwm}
+format-background = ${colors.rdL}
+
+[module/keyboard]
+type = custom/script
+exec = keyboard -s
+interval = 2
+click-left = keyboard -t
+format-underline =  ${colors.dwm}
+format-background = ${colors.rdL}
+format-padding = 1
+
+[module/net]
+type = custom/script
+exec = net_speed
+interval = 1
+click-left = tremc
+format-underline =  ${colors.dwm}
+format-background = ${colors.rdL}
+format-padding = 1
+
+
+[module/space-text]
+type = custom/text
+content = " "
+
+[module/xwindow]
+type = internal/xwindow
+label = [ %title:0:80:... % ]
+format-foreground = ${colors.purple}
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
