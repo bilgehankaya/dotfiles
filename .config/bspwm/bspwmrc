@@ -58,6 +58,6 @@ bspc rule -a Gpick state=floating sticky=on rectangle=50x0
 # bspc rule -a St:* monitor=focused state=floating focus=on follow=on rectangle=300x20+500+0
 
 st -c termi &
-st -c calc -e "dropdowncalc" &
+st -c calc -e bc -lq &
 bspc rule -a termi sticky=on state=floating hidden=on
 bspc rule -a calc sticky=on state=floating hidden=on

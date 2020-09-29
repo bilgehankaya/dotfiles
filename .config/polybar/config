@@ -36,7 +36,7 @@ font-6 = FontAwesome5Brands:style=Regular:size=11;3
 modules-left = bspwm xwindow
 ;modules-center =
 ;modules-right = vpn usdt crypto cmus volume date battery xkeyboard
-modules-right = net torrent vpn  mem volume date battery keyboard
+modules-right = mpd net_speed torrent vpn  mem volume date battery keyboard space-text
 tray-position = right
 tray-padding = 0
 tray-spacing = 0
@@ -66,7 +66,7 @@ scroll-down = bspwm-deskprev
 [module/mpd]
 type = internal/mpd
 exec_if = "mpc current"
-format-online = <icon-seekb> <toggle> <label-song>
+format-online = <toggle> <label-song>
 icon-play = 
 icon-pause = 
 icon-stop = ⏹
@@ -84,18 +84,10 @@ click-right = mpc toggle
 label-song = %artist% - %title%
 label-song-maxlen = 70
 label-song-ellipsis = true
-format-online-padding = 0
 format-online-spacing = 0
-
-[module/cmus]
-type = custom/script
-exec-if = pgrep -x cmus
-exec = ~/.config/polybar/scripts/cmus
-click-left = cmus-remote --pause &
-scroll-up = cmus-remote --volume +5%
-scroll-down = cmus-remote --volume -5%
-interval = 1
-format-background = ${colors.rdL}
+format-online-padding = 1
+format-online-underline = ${colors.dwm}
+format-online-background = ${colors.rdL}
 
 [module/date]
 type = custom/script
@@ -132,22 +124,6 @@ format-padding = 1
 format-underline =  ${colors.dwm}
 format-background = ${colors.rdL}
 
-[module/bluetooth]
-type = custom/script
-exec = ~/.local/bin/statusbar/bluetooth
-tail = true
-click-left = ~/.local/bin/statusbar/bluetooth --toggle &
-format-background = ${colors.rdL}
-
-[module/izmir]
-type = custom/ipc
-hook-0 = cat ~/.cache/weather
-initial = 1
-format-padding = 1
-click-left = $BROWSER http://wttr.in/izmir &
-format-underline =  ${colors.dwm}
-format-background = ${colors.rdL}
-
 [module/usdt]
 type = custom/script
 interval = 60
@@ -178,7 +154,6 @@ format-background = ${colors.rdL}
 [module/mem]
 type = custom/script
 exec = memory
-;exec = echo "  $(free -h --si | awk '/^Mem:/ {print $3"/" $2}')"
 interval = 3
 click-left = $TERMINAL -e htop
 format-padding = 1
@@ -195,26 +170,6 @@ click-left = $TERMINAL -e tremc
 format-underline =  ${colors.dwm}
 format-background = ${colors.rdL}
 
-[module/xkeyboard]
-type = internal/xkeyboard
-blacklist-0 = num lock
-blacklist-1 = scroll lock
-format-xkeybord = <label-space> <label-layout>
-label-layout =  %layout%
-format-xkeybord-click-left = keyboard -t
-format-prefix = " "
-format-underline =  ${colors.dwm}
-format-background = ${colors.rdL}
-
-[module/keybr]
-type = custom/script
-exec = keyboard -s
-interval = 5
-click-left = keyboard -t ; relobadpolybar
-format-underline =  ${colors.dwm}
-format-background = ${colors.rdL}
-
-
 [module/internet]
 type = custom/script
 exec = internet
@@ -226,13 +181,13 @@ format-background = ${colors.rdL}
 [module/keyboard]
 type = custom/script
 exec = keyboard -s
-interval = 2
-click-left = keyboard -t
+interval = 10
+click-left = keyboard -t ; reloadpolybar
 format-underline =  ${colors.dwm}
 format-background = ${colors.rdL}
 format-padding = 1
 
-[module/net]
+[module/net_speed]
 type = custom/script
 exec = net_speed
 interval = 1
@@ -240,7 +195,6 @@ click-left = tremc
 format-underline =  ${colors.dwm}
 format-background = ${colors.rdL}
 format-padding = 1
-
 
 [module/space-text]
 type = custom/text

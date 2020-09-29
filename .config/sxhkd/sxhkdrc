@@ -53,7 +53,7 @@ super + shift + c
 	$TERMINAL -e calcurse -D ~/.config/calcurse
 
 # Launch vimWiki
-super + shift + v
+super + shift + n
 	$TERMINAL -e nvim -c VimwikiIndex
 
 # Launch RSS feeder newsboat
@@ -68,24 +68,20 @@ super + m
 super + t
 	$TERMINAL -e cointop
 
-# ssh into
+# Ssh into
 super + shift + s
 	$TERMINAL -e ssh root@172.104.141.12
 
-#book menu
+# Book menu
 super + shift + b
 	dmenubooks
 
-# Cycle between us-tr
-super + shift + l
-	keyboard -t ; reloadpolybar
 
 #______SYSTEM______
 
 # Show bspwm keybindings
 super + F1
-	groff -mom ~/Documents/VM_Manuals/bspwm.mom -Tpdf | zathura -
-# groff -mom /usr/local/share/dwm/larbs.mom -Tpdf | zathura -
+	groff -mom ~/.config/bspwm/bspwm.mom -Tpdf | zathura -
 
 # Restart bspwm, polybar or sxhkd
 super + F2
@@ -101,17 +97,17 @@ super + F4
 
 # Config dmenu
 super + F5
-	$TERMINAL -e joplin
+	virtualbox
 
 # Start torrent daemon/open interface
 super + F6
 	torwrap
 
-# toggle torrent daemon
+# Toggle torrent daemon
 super + F7
 	td-toggle
 
-# sync email
+# Sync email
 super + F8
 	mailsync
 
@@ -123,10 +119,11 @@ super + {F9,F10}
 super + F11
   	mpv --no-cache --no-osc --no-input-default-bindings --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)
 
-#  Screen share
+# Screen share
 super + F12
 	dmenurecord
 
+# Kill current record
 super + KP_Insert
 	dmenurecord kill
 
@@ -141,6 +138,7 @@ super + grave
 # Screenshot other
 super + @Print
 	maimpick
+
 
 #______AUDIO______
 
@@ -198,7 +196,7 @@ super + {g,semicolon}
 
 #______BSPWM RULES______
 
-# close and kill
+# Close and kill
 super + {_,shift + }q
 	bspc node -{c,k}
 
@@ -212,11 +210,15 @@ super { ,+ shift }+ z
 
 # Swap the current node and the biggest local node
 super + space
-	bspc node -s biggest.local || bspc node -s next.local
+	bspc node -s biggest.local || bspc node -s next.local || bspc node -s next.local.!hidden.window
 
-# Focus the node in the given direction
-super + {_,shift + }{h,j,k,l}
-	bspc node -{f,s} {west,south,north,east}
+# Focus the node in the given direction or resize
+super + {_,shift + } + {h,l}
+	{~/.config/sxhkd/resize,bspc node -s} {west,east}
+
+# Cycle between nodes or swap them
+super + {_,shift + } + {k,j}
+	bspc node -{f,s} {prev,next}.local.!hidden.window
 
 # Resize nodes
 control + alt + {h,j,k,l}
@@ -226,11 +228,11 @@ control + alt + {h,j,k,l}
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
-# set the window state (tiled, p-tiled, floating)
+# Set the window state (tiled, p-tiled, floating)
 super + s
 	bspc node -t {floating,tiled}
 
-#  same as super + s
+# Same as super + s
 super + shift + space
 	bspc node -t {floating,tiled}
 
@@ -238,9 +240,13 @@ super + shift + space
 super + o
 	bspc node -g sticky={on,off}
 
-# Hover app to right
-super + shift + n
+
+# Hover app to right or left corner
+super + {_,shift + }i
 	bspc node focused -t \~floating ; hover right ; bspc node -g sticky={on,off}
+# Hover app to right
+# super + shift + n
+# 	bspc node focused -t \~floating ; hover right ; bspc node -g sticky={on,off}
 
 # Hover app to left
 # super + shift + b
@@ -250,29 +256,36 @@ super + shift + n
 super + {_,shift + }f
 	bspc node -t \~fullscreen
 
-# Default window gap
+# Toggle window gap
 super + x
-	bspc config window_gap 18
+	bspc config window_gap {0,18}
+
+# Toggle window gap
+super + shift + x
+	bspc config window_gap {0,18}
 
 # 90 degree flip
 super + y
 	bspc node @focused:/ -R 90
 
-# toggle polybar
+# Toggle polybar
 super + b
 	polybar-msg cmd toggle ; bspc config top_padding {0,24}
 
-# focus on master window
-super + v
-	bspc node --focus biggest.local
+# Focus on master window
+super {_,shift + }v
+	{bspc node --focus biggest.local, bspc node -s biggest.local}
+
+
 #______SHUTDOWN ETC.______
 
 # Reboot, shutdown ...
 super + shift + BackSpace
 	sysact
 
-XF86MonBrightnessDown
- 	xbacklight -dec 10
+super + BackSpace
+	sysact
 
-XF86MonBrightnessUp
- 	xbacklight -inc 10
+# Increase/Decrease screen brightness
+{XF86MonBrightnessDown,XF86MonBrightnessUp}
+	{xbacklight -dec,xbacklight -inc} 15

@@ -1,6 +1,6 @@
 #!/bin/sh
-
-STEP=20
+# resize nodes for bpswm
+STEP=50
 
 case $1 in
     east)  dir=right; falldir=left;   sign=+;;

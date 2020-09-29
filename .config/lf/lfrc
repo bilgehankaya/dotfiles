@@ -142,6 +142,7 @@ map gD cd ~/Documents
 map ga cd ~/Audio
 map gr cd ~/repos
 map gP cd ~/Phone
+map gl cd ~/.local
 
 # HDD
 map ge cd /mnt/EXTRA
