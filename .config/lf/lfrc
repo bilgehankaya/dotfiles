@@ -1,0 +1,155 @@
+set shell bash
+set shellopts '-eu'
+set ifs "\n"
+set scrolloff 10
+set color256
+set icons
+set period 1
+set drawbox
+set previewer ~/.config/lf/preview
+# $lf -remote "send $id set previewer /home/bilge/.config/lf/scope"
+
+# cmds/functions
+cmd open ${{
+    case $(file --mime-type $f -b) in
+	image/vnd.djvu|application/pdf|application/octet-stream) setsid -f zathura $fx >/dev/null 2>&1 ;;
+        text/*) $EDITOR $fx;;
+	image/x-xcf|image/svg+xml) setsid -f gimp $f >/dev/null 2>&1 ;;
+	image/*) xdg-open "$f" ;;
+	audio/*) mpv --audio-display=no $f ;;
+	video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
+	application/pdf|application/vnd*|application/epub*) setsid -f zathura $fx >/dev/null 2>&1 ;;
+        *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
+    esac
+}}
+
+cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
+
+cmd setbg "$1"
+
+cmd delete ${{
+	clear; tput cup $(($(tput lines)/3)); tput bold
+	set -f
+	printf "%s\n\t" "$fx"
+	printf "delete?[y/N]"
+	read ans
+	[ $ans = "y" ] && rm -rf $fx
+}}
+
+# Archive bindings
+cmd unarchive ${{
+  case "$f" in
+      *.zip) unzip "$f" ;;
+      *.tar.gz) tar -xzvf "$f" ;;
+      *.tar.bz2) tar -xjvf "$f" ;;
+      *.tar) tar -xvf "$f" ;;
+      *.rar) unrar l "$1";;
+      *) echo "Unsupported format" ;;
+  esac
+}}
+
+cmd zip %zip -r "$f" "$f"
+
+cmd chmod ${{
+  printf "Mode Bits: "
+  read ans
+
+  for file in "$fx"
+  do
+    chmod $ans $file
+  done
+
+  lf -remote 'send reload'
+}}
+
+cmd dragon %dragon-drag-and-drop -a -x $fx
+
+map m
+map o
+map "'"
+map '"'
+map d
+map c
+map e
+
+# Delete bindings
+map D delete
+map <f-8> delete
+
+# Create directory
+map <c-n> push :mkdir<space>
+map mkd push :mkdir<space>
+
+# Cut-copy-paste
+map d cut
+map y copy
+map p paste
+
+# Toggle hidden files
+map . set hidden!
+map <bs2> set hidden!
+
+# Zip-rar operations
+map Z zip
+map X unarchive
+
+# Open a file
+map <enter> open
+
+# Chmod
+map ch chmod
+
+# Change wallpaper
+map bg $setbg $f
+
+# Rename file/folder
+map r rename
+map <f-2> rename
+
+# Unselect
+map u unselect
+
+# Drag and drop
+map <c-c> dragon
+
+# Reload lf
+map <c-r> reload
+
+# escape
+map <esc>  cmd-escape
+
+# bulk rename
+map br $vimv $fx
+map cW $vimv $fx
+
+# Fuzzy finder
+map <c-f> $lf -remote "send $id select '$(fzf)'"
+
+# Navigation
+map gg top
+
+# Search
+map f search
+
+# Home
+map gh cd ~
+map gc cd ~/.config
+map gC cd ~/.cache
+map gb cd ~/.local/bin
+map gs cd ~/.local/src
+map gd cd ~/Downloads
+map gD cd ~/Documents
+map ga cd ~/Audio
+map gr cd ~/repos
+map gP cd ~/Phone
+
+# HDD
+map ge cd /mnt/EXTRA
+map gp cd /mnt/EXTRA/Projects
+map gm cd /mnt/EXTRA/Movies
+map gM cd /mnt/EXTRA/Music
+map gy cd /mnt/EXTRA/Youtube
+map gt cd "/mnt/EXTRA/TV Shows"
+map gT cd /mnt/EXTRA/Torrent
+map gB cd /mnt/EXTRA/Books
+map gv cd /mnt/EXTRA/VMs
