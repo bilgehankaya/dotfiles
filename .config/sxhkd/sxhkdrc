@@ -240,17 +240,13 @@ super + shift + space
 super + o
 	bspc node -g sticky={on,off}
 
-
-# Hover app to right or left corner
-super + {_,shift + }i
-	bspc node focused -t \~floating ; hover right ; bspc node -g sticky={on,off}
 # Hover app to right
-# super + shift + n
-# 	bspc node focused -t \~floating ; hover right ; bspc node -g sticky={on,off}
+super + i
+	bspc node focused -t \~floating ; hover right ; bspc node -g sticky={on,off}
 
 # Hover app to left
-# super + shift + b
-	# bspc node focused -t \~floating ; hover left ; bspc node -g sticky={on,off}
+super + shift + i
+	bspc node focused -t \~floating ; hover left ; bspc node -g sticky={on,off}
 
 # Fullscreen mode
 super + {_,shift + }f
