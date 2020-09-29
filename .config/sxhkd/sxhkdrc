@@ -1,0 +1,278 @@
+#______PROGRAMS______
+
+# Launch browser
+super + w
+	$BROWSER
+
+# Launch Network Manager
+super + shift + w
+	$TERMINAL -e nmtui
+
+# Launch mail client neomutt
+super + e
+	vpn --toggle
+
+# Launch file manager
+super + r
+	$TERMINAL -e ranger
+
+# Launch htop
+super + shift + r
+	$TERMINAL -e htop
+
+# Launch pulsemixer
+super + a
+	$TERMINAL -e pulsemixer
+
+# Launch pavucontrol
+super + shift + a
+	pavucontrol
+
+# Launch dmenu
+super + d
+	dmenu_run
+
+# Launch terminal
+super + Return
+	$TERMINAL
+
+# Launch strachpad terminal
+super + {shift + Return, u}
+	scratchtermtoggle termi
+
+# Launch strachpad calculator
+super + apostrophe
+	scratchtermtoggle calc
+
+# Open configs with dmenu
+super + c
+	dmenuconfig
+
+# Launch calendar app calcurse
+super + shift + c
+	$TERMINAL -e calcurse -D ~/.config/calcurse
+
+# Launch vimWiki
+super + shift + v
+	$TERMINAL -e nvim -c VimwikiIndex
+
+# Launch RSS feeder newsboat
+super + n
+	$TERMINAL -e newsboat
+
+# Launch music player
+super + m
+	$TERMINAL -e ncmpcpp
+
+# Launch cointop
+super + t
+	$TERMINAL -e cointop
+
+# ssh into
+super + shift + s
+	$TERMINAL -e ssh root@172.104.141.12
+
+#book menu
+super + shift + b
+	dmenubooks
+
+# Cycle between us-tr
+super + shift + l
+	keyboard -t ; reloadpolybar
+
+#______SYSTEM______
+
+# Show bspwm keybindings
+super + F1
+	groff -mom ~/Documents/VM_Manuals/bspwm.mom -Tpdf | zathura -
+# groff -mom /usr/local/share/dwm/larbs.mom -Tpdf | zathura -
+
+# Restart bspwm, polybar or sxhkd
+super + F2
+   	reloadbspwm
+
+# Change display
+super + F3
+	displayselect
+
+# Edit scripts with dmenu
+super + F4
+	dmenuscripts
+
+# Config dmenu
+super + F5
+	$TERMINAL -e joplin
+
+# Start torrent daemon/open interface
+super + F6
+	torwrap
+
+# toggle torrent daemon
+super + F7
+	td-toggle
+
+# sync email
+super + F8
+	mailsync
+
+# Mount a USB drive or Android device
+super + {F9,F10}
+	{dmenumount,dmenuumount}
+
+# View webcam
+super + F11
+  	mpv --no-cache --no-osc --no-input-default-bindings --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)
+
+#  Screen share
+super + F12
+	dmenurecord
+
+super + KP_Insert
+	dmenurecord kill
+
+# Emoji list
+super + grave
+  	dmenuunicode
+
+# Screenshot
+@Print
+	maim pic-full-$(date '+%y%m%d-%H%M-%S').png
+
+# Screenshot other
+super + @Print
+	maimpick
+
+#______AUDIO______
+
+# Changes to next/previous tracks
+super + {comma,period}
+	mpc {prev,next}
+
+# Restart track
+super + shift + comma
+	mpc repeat
+
+# Toggle music player
+super + p
+	mpc toggle
+
+# Pause all medias
+super + shift + p
+	mpc pause ; pauseallmpv
+
+# Mute all audio
+super + shift + m
+	pamixer -t
+
+# Increase volume
+super + {equal,plus}
+	pamixer --allow-boost -i {5,15}
+
+# Decrease volume
+super {_,shift +} + minus
+	pamixer --allow-boost -d {5,15}
+
+# Seek forward in song
+super + {_,shift +} bracketright
+	mpc seek +{10,120}
+
+# Seek backward in song
+super + {_,shift +} bracketleft
+	mpc seek -{10,120}
+
+
+#______WORKSPACES______
+
+# Focus or send program to workspace
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} ^{1-9,10}
+
+# Go to pre focus workspace
+super + {Tab,backslash}
+	bspc desktop last --focus
+
+# Go to left or right workspace
+super + {g,semicolon}
+	bspc desktop {prev,next}.occupied --focus
+
+
+#______BSPWM RULES______
+
+# close and kill
+super + {_,shift + }q
+	bspc node -{c,k}
+
+# Toggle gaps
+super + shift + d
+	bspc config window_gap {0,18}
+
+# Increase/descrease gap size
+super { ,+ shift }+ z
+	bspc config window_gap $(($(bspc config window_gap) {+,-} 3))
+
+# Swap the current node and the biggest local node
+super + space
+	bspc node -s biggest.local || bspc node -s next.local
+
+# Focus the node in the given direction
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+# Resize nodes
+control + alt + {h,j,k,l}
+	~/.config/sxhkd/resize {west,south,north,east}
+
+# Move floating window
+super + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+# set the window state (tiled, p-tiled, floating)
+super + s
+	bspc node -t {floating,tiled}
+
+#  same as super + s
+super + shift + space
+	bspc node -t {floating,tiled}
+
+# Make a node sticky
+super + o
+	bspc node -g sticky={on,off}
+
+# Hover app to right
+super + shift + n
+	bspc node focused -t \~floating ; hover right ; bspc node -g sticky={on,off}
+
+# Hover app to left
+# super + shift + b
+	# bspc node focused -t \~floating ; hover left ; bspc node -g sticky={on,off}
+
+# Fullscreen mode
+super + {_,shift + }f
+	bspc node -t \~fullscreen
+
+# Default window gap
+super + x
+	bspc config window_gap 18
+
+# 90 degree flip
+super + y
+	bspc node @focused:/ -R 90
+
+# toggle polybar
+super + b
+	polybar-msg cmd toggle ; bspc config top_padding {0,24}
+
+# focus on master window
+super + v
+	bspc node --focus biggest.local
+#______SHUTDOWN ETC.______
+
+# Reboot, shutdown ...
+super + shift + BackSpace
+	sysact
+
+XF86MonBrightnessDown
+ 	xbacklight -dec 10
+
+XF86MonBrightnessUp
+ 	xbacklight -inc 10
