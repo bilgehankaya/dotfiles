@@ -1,0 +1,28 @@
+#!/bin/bash
+
+case $BLOCK_BUTTON in
+	# 1) setsid -f "$TERMINAL" -e bmon ;;
+	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+
+case $1 in
+	-u) interface="wlan0"
+	    while true
+	    do
+	    R1=`cat /sys/class/net/$interface/statistics/rx_bytes`
+ 	    T1=`cat /sys/class/net/$interface/statistics/tx_bytes`
+	    sleep 1
+	    R2=`cat /sys/class/net/$interface/statistics/rx_bytes`
+            T2=`cat /sys/class/net/$interface/statistics/tx_bytes`
+	    tx=$((T2 -T1))
+	    rx=$((R2 -R1))
+	    printf "%4sB %4sB\\n" $(numfmt --to=iec $rx) $(numfmt --to=iec $tx) > ~/.cache/speed
+      	    done;;
+	-p) cat ~/.cache/speed ;;
+esac
+# TKBPS=`expr $TBPS / 1024`
+# RKBPS=`expr $RBPS / 1024`
+# icon="⏫"
+# icon1="⏬"
+# printf " %s %s %s %s \\n" "$icon" "$RKBPS kb" "$icon1" "$TKBPS kb"
