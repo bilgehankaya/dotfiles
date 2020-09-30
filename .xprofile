@@ -5,12 +5,12 @@
 dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
 mpd &			# music player daemon-you might prefer it as a service though
 setbg &			# set the background with the `setbg` script
-# picom -b &
+# picom -b &		# picom for transparency
 xcompmgr &		# xcompmgr for transparency
 setxkbmap -option caps:escape & # caps key is deactivated
 dunst &			# dunst for notifications
-xrdb ~/.config/Xresources &
+xrdb ~/.config/Xresources & # Loads color scheme
 xset r rate 300 50 &	# Speed xrate up
 unclutter &		# Remove mouse when idle
 xsetroot -cursor_name left_ptr &
-netspeed -u &
+netspeed -u & # Calculates net speed with inf. loop
