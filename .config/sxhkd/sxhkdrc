@@ -1,5 +1,6 @@
 #______PROGRAMS______
 
+
 # Launch browser
 super + w
 	$BROWSER
@@ -76,8 +77,13 @@ super + shift + s
 super + shift + b
 	dmenubooks
 
+# Notify current song
+super + slash
+	showmusic
+
 
 #______SYSTEM______
+
 
 # Show bspwm keybindings
 super + F1
@@ -142,6 +148,7 @@ super + @Print
 
 #______AUDIO______
 
+
 # Changes to next/previous tracks
 super + {comma,period}
 	mpc {prev,next}
@@ -181,6 +188,7 @@ super + {_,shift +} bracketleft
 
 #______WORKSPACES______
 
+
 # Focus or send program to workspace
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} ^{1-9,10}
@@ -195,6 +203,7 @@ super + {g,semicolon}
 
 
 #______BSPWM RULES______
+
 
 # Close and kill
 super + {_,shift + }q
@@ -270,10 +279,11 @@ super + b
 
 # Focus on master window
 super {_,shift + }v
-	{bspc node --focus biggest.local, bspc node -s biggest.local}
+	bspc node {-f,-s} biggest.local
 
 
 #______SHUTDOWN ETC.______
+
 
 # Reboot, shutdown ...
 super + shift + BackSpace
@@ -283,5 +293,5 @@ super + BackSpace
 	sysact
 
 # Increase/Decrease screen brightness
-{XF86MonBrightnessDown,XF86MonBrightnessUp}
+XF86MonBrightness{Down,Up}
 	{xbacklight -dec,xbacklight -inc} 15

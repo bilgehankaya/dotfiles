@@ -36,7 +36,7 @@ font-6 = FontAwesome5Brands:style=Regular:size=11;3
 modules-left = bspwm xwindow
 ;modules-center =
 ;modules-right = vpn usdt crypto cmus volume date battery xkeyboard
-modules-right = mpd net_speed torrent vpn  mem volume date battery keyboard space-text
+modules-right = mpd dolar net_speed torrent vpn  mem volume date battery keyboard space-text
 tray-position = right
 tray-padding = 0
 tray-spacing = 0
@@ -124,11 +124,12 @@ format-padding = 1
 format-underline =  ${colors.dwm}
 format-background = ${colors.rdL}
 
-[module/usdt]
+[module/dolar]
 type = custom/script
-interval = 60
-exec = dolar
-click-left = $BROWSER https://pro.btcturk.com/en/pro/exchange/USDT_TRY &
+interval = 300
+exec = doviz
+click-left = doviz -r ; reloadpolybar
+format-padding = 1
 format-underline =  ${colors.dwm}
 format-background = ${colors.rdL}
 
