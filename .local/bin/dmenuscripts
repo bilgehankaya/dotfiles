@@ -1,9 +1,10 @@
 #!/bin/sh
 
 inner="$(cd ~/.local/bin && ls */**)"
-files="$(cd ~/.local/bin && ls -al | grep '^-' | awk '{print $9}')"
+files="$(ls ~/.local/bin -a1)"
 declare options=("$inner$files")
 
 choice=$(echo -e "${options[@]}" | dmenu -i -p 'Edit script: ')
 [ "$choice" ] || exit
+
 $TERMINAL -e nvim "$HOME/.local/bin/$choice"

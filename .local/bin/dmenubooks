@@ -1,8 +1,10 @@
 #!/bin/sh
 
 loc="/mnt/EXTRA/Books/"
-choice=$(ls /mnt/EXTRA/Books/*/* | grep -E "pdf|epub" | dmenu -i -p "Select a book: " -l 15)
+books="$(cd $loc && ls */**)"
+declare options=("$books")
 
+choice=$(echo -e "${options[@]}"| dmenu -i -p "Select a book: " -l 15)
 [ -z "$choice" ] && exit
 
-zathura "$choice"
+zathura "$loc$choice"

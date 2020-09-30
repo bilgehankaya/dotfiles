@@ -24,6 +24,7 @@ mpv
 tmux
 xinitrc
 xprofile
+zprofile
 quit")
 
 choice=$(echo -e "${options[@]}" | dmenu -i -p 'Edit config file: ')
@@ -53,7 +54,6 @@ case "$choice" in
 	dwmblocks)
 		choice="$HOME/.local/src/dwmblocks/config.h"
 	;;
-
 	i3)
 		choice="$HOME/.config/i3/config"
 	;;
@@ -76,7 +76,7 @@ case "$choice" in
 		choice="$HOME/.config/qutebrowser/config.py"
 	;;
 	ranger)
-		st -e lf "$HOME/.config/ranger" ; exit
+		$TERMINAL -e lf "$HOME/.config/ranger" ; exit
 	;;
 	st)
 		choice="$HOME/.local/src/st/config.h"
@@ -106,12 +106,14 @@ case "$choice" in
 		choice="$HOME/.config/tmux/tmux.conf"
 	;;
 	xinitrc)
-		choice="$HOME/.xinitrc"
+		choice="$HOME/.config/X11/xinitrc"
 	;;
 	xprofile)
 		choice="$HOME/.xprofile"
 	;;
-
+	zprofile)
+		choice="$HOME/.zprofile"
+	;;
 	*)
 		exit 1
 	;;

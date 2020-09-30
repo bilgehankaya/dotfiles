@@ -49,7 +49,7 @@ alias caps="xdotool key Caps_Lock"
 alias x="xbacklight -set "
 
 #Dictionary
-alias s="sdcv"
+alias s="sdcv --color"
 
 alias jup="jupyter notebook"
 
