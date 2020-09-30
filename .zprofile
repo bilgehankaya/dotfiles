@@ -29,6 +29,7 @@ export GOPATH="${XDG_DATA_HOME:-$HOME/.local/share}/go"
 export ANSIBLE_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/ansible/ansible.cfg"
 export UNISON="${XDG_DATA_HOME:-$HOME/.local/share}/unison"
 export HISTFILE="${XDG_DATA_HOME:-$HOME/.local/share}/history"
+export XINITRC="${XDG_CONFIG_HOME:-$HOME/.config}/X11/xinitrc"
 
 # Other program settings:
 export DICS="/usr/share/stardict/dic/"
@@ -121,4 +122,4 @@ ex=:\
 *.ipynb=:\
 "
 
-[ "$(tty)" = "/dev/tty1" ] && ! pidof Xorg >/dev/null 2>&1  && exec startx
+[ "$(tty)" = "/dev/tty1" ] && ! pidof Xorg >/dev/null 2>&1  && exec startx "$XINITRC"
