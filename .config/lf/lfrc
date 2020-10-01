@@ -154,3 +154,4 @@ map gt cd "/mnt/EXTRA/TV Shows"
 map gT cd /mnt/EXTRA/Torrent
 map gB cd /mnt/EXTRA/Books
 map gv cd /mnt/EXTRA/VMs
+map go cd /mnt/EXTRA/OSs
