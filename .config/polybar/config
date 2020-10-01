@@ -36,7 +36,7 @@ font-6 = FontAwesome5Brands:style=Regular:size=11;3
 modules-left = bspwm xwindow
 ;modules-center =
 ;modules-right = vpn usdt crypto cmus volume date battery xkeyboard
-modules-right = mpd dolar net_speed torrent vpn  mem volume date battery keyboard space-text
+modules-right = mpd dolar netspeed torrent vpn  mem volume date battery keyboard space-text
 tray-position = right
 tray-padding = 0
 tray-spacing = 0
@@ -188,9 +188,10 @@ format-underline =  ${colors.dwm}
 format-background = ${colors.rdL}
 format-padding = 1
 
-[module/net_speed]
+[module/netspeed]
 type = custom/script
-exec = net_speed
+;exec = net_speed
+exec = netspeed -p
 interval = 1
 click-left = tremc
 format-underline =  ${colors.dwm}
