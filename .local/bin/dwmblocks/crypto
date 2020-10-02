@@ -4,13 +4,10 @@
 
 get_prices() {
 ping -q -c 1 1.1.1.1 >/dev/null 2>&1 || exit
-
 json="$(curl -s -X GET 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cethereum&vs_currencies=usd' -H 'accept: application/json')"
-
 echo $json | jq '.bitcoin.usd' > ~/.cache/btc
 echo $json | jq '.ethereum.usd' > ~/.cache/eth
-
-[ "$(pgrep -x dwm)" ] && pkill -RTMIN+13 dwmblocks || polybar-msg hook crypto 1
+pkill -RTMIN+13 dwmblocks
 }
 
 case $BLOCK_BUTTON in
