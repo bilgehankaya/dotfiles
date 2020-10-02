@@ -1,4 +1,5 @@
 #!/bin/bash
+
 id=$(xdotool search --class $1)
 
 if [ "$id" != "" ]

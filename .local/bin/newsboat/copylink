@@ -1,4 +1,4 @@
 #!/bin/sh
 
-# copy youtube-link
-echo "$1" | xclip -selection clipboard
+# Copy youtube link
+echo -n "$1" | xclip -selection clipboard
