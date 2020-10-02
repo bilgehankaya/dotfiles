@@ -191,7 +191,7 @@ format-padding = 1
 [module/netspeed]
 type = custom/script
 ;exec = net_speed
-exec = netspeed -p
+exec = netspeed
 interval = 1
 click-left = tremc
 format-underline =  ${colors.dwm}
