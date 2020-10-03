@@ -96,6 +96,12 @@ case "$extension" in
         try lynx   -dump "$path" && { dump | trim | fmt -s -w "$width"; exit 4; }
         try elinks -dump "$path" && { dump | trim | fmt -s -w "$width"; exit 4; }
         ;; # fall back to highlight/cat if the text browsers fail
+	[1-8]) man "$path" | col -b ;;
+	o) nm "$path" | less ;;
+	torrent) transmission-show "$path" ;;
+	iso) iso-info --no-header -l "$path" ;;
+	md) glow -s dark "$path" ;;
+	json) jq --color-output . "$path" ;;
 esac
 
 case "$mimetype" in
