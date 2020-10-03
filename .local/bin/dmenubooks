@@ -2,9 +2,7 @@
 
 loc="/mnt/EXTRA/Books/"
 books="$(cd $loc && ls */**)"
-declare options=("$books")
 
-choice=$(echo -e "${options[@]}"| dmenu -i -p "Select a book: " -l 15)
-[ -z "$choice" ] && exit
+choice=$(printf "$books"| dmenu -i -p "Select a book: " -l 15)
 
-zathura "$loc$choice"
+[ -z "$choice" ] && exit || zathura "$loc$choice"
