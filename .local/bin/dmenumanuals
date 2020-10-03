@@ -1,0 +1,20 @@
+#!/bin/sh
+
+manuals() {
+manchoice=$(man -k . | dmenu -l 30 -p "Select a manual:" | cut -d ' ' -f1)
+[ -z "$manchoice" ] &&  exit
+
+echo $manchoice | xargs -r man -Tpdf | zathura -
+}
+
+keybindings() {
+	groff -mom ~/.local/src/dwm/dwm.mom -Tpdf | zathura -
+	}
+
+cmds="\
+ Manuals		manuals
+ Key bindings		keybindings"
+
+choice="$(echo "$cmds" | cut -d'	' -f 1 | dmenu)" || exit 1
+
+`echo "$cmds" | grep "^$choice	" | cut -d '	' -f2-`

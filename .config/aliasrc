@@ -49,8 +49,9 @@ alias caps="xdotool key Caps_Lock"
 alias x="xbacklight -set "
 
 #Dictionary
-alias s="sdcv --color"
+alias s="sdcv -n --color"
 
+# laziness
 alias jup="jupyter notebook"
 
 #Connect to headphones
@@ -62,10 +63,5 @@ alias myip="curl ifconfig.co/country-iso"
 # SSH into
 alias bil="ssh root@www.bilgehankaya.xyz"
 
-# Manual to pdf
-ma(){
-	FILE=~/Manuals/$1.pdf
-	[ -f "$FILE" ] && zathura $FILE || (man -Tpdf $1 > ~/Manuals/$1.pdf && zathura ~/Manuals/$1.pdf)
-	}
-
+# Alias for dot files
 alias dot='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
