@@ -61,7 +61,7 @@ case "$choice" in
 		choice="$HOME/.config/nvim/init.vim"
 	;;
 	lf)
-		st -e lf "$HOME/.config/lf" ; exit
+		choice="$HOME/.config/lf/lfrc"
 	;;
 	newsboat)
 		choice="$HOME/.config/newsboat/config"
@@ -76,7 +76,7 @@ case "$choice" in
 		choice="$HOME/.config/qutebrowser/config.py"
 	;;
 	ranger)
-		$TERMINAL -e lf "$HOME/.config/ranger" ; exit
+		$TERMINAL -e ranger "$HOME/.config/ranger" ; exit
 	;;
 	st)
 		choice="$HOME/.local/src/st/config.h"

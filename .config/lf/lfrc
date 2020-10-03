@@ -7,18 +7,18 @@ set icons
 set period 1
 set drawbox
 set previewer ~/.config/lf/preview
-# $lf -remote "send $id set previewer /home/bilge/.config/lf/scope"
+set hiddenfiles "*.srt:.*"
 
 # cmds/functions
 cmd open ${{
     case $(file --mime-type $f -b) in
-	image/vnd.djvu|application/pdf|application/octet-stream) setsid -f zathura $fx >/dev/null 2>&1 ;;
+	image/vnd.djvu|application/pdf|application/octet-stream) zathura $fx >/dev/null 2>&1 ;;
         text/*) $EDITOR $fx;;
 	image/x-xcf|image/svg+xml) setsid -f gimp $f >/dev/null 2>&1 ;;
 	image/*) xdg-open "$f" ;;
 	audio/*) mpv --audio-display=no $f ;;
-	video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
-	application/pdf|application/vnd*|application/epub*) setsid -f zathura $fx >/dev/null 2>&1 ;;
+	video/*) mpv $f -quiet >/dev/null 2>&1 ;;
+	application/pdf|application/vnd*|application/epub*) zathura $fx >/dev/null 2>&1 ;;
         *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
     esac
 }}
@@ -26,6 +26,8 @@ cmd open ${{
 cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
 
 cmd setbg "$1"
+
+cmd sub $OpenSubtitlesDownload.py --cli "$f" -l eng
 
 cmd delete ${{
 	clear; tput cup $(($(tput lines)/3)); tput bold
@@ -130,6 +132,9 @@ map gg top
 
 # Search
 map f search
+
+# Download subtitles
+map S sub
 
 # Home
 map gh cd ~

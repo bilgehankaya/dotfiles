@@ -103,7 +103,7 @@ super + F4
 
 # Config dmenu
 super + F5
-	virtualbox
+	keyboard -t ; reloadpolybar
 
 # Start torrent daemon/open interface
 super + F6

@@ -118,12 +118,13 @@ set clipboard+=unnamedplus
 	autocmd BufWritePost ~/.local/src/dwm/config.h !cd ~/.local/src/dwm/; sudo make install
 	autocmd BufWritePost ~/.local/src/st/config.h !cd ~/.local/src/st/; sudo make install
 	autocmd BufWritePost ~/.local/src/dmenu/config.h !cd ~/.local/src/dmenu/; sudo make install
-" When shortcut files are updated, renew bash and ranger configs with new material:
-	autocmd BufWritePost files,directories !shortcuts
 " Run xrdb whenever Xdefaults or Xresources are updated.
 	autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
 " Update binds when sxhkdrc is updated.
 	autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+
+" Set working directory current file's directory
+	autocmd BufEnter * lcd %:p:h
 
   " Git Gutter
   highlight GitGutterAdd guifg=#009900 ctermfg=Green
