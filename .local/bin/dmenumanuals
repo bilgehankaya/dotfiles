@@ -12,8 +12,8 @@ keybindings() {
 	}
 
 cmds="\
- Manuals		manuals
- Key bindings		keybindings"
+ Manuals		manuals
+ Key bindings		keybindings"
 
 choice="$(echo "$cmds" | cut -d'	' -f 1 | dmenu)" || exit 1
 
