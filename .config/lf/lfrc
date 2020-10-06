@@ -7,19 +7,19 @@ set icons
 set period 1
 set drawbox
 set previewer ~/.config/lf/preview
-set hiddenfiles "*.srt:.*"
+set hiddenfiles ".*:*.idx:*.srt:*.sub"
 
 # cmds/functions
 cmd open ${{
     case $(file --mime-type $f -b) in
 	image/vnd.djvu|application/pdf|application/octet-stream) zathura $fx >/dev/null 2>&1 ;;
-        text/*) $EDITOR $fx;;
+        application/json|text/*) $EDITOR $fx;;
 	image/x-xcf|image/svg+xml) setsid -f gimp $f >/dev/null 2>&1 ;;
 	image/*) xdg-open "$f" ;;
 	audio/*) mpv --audio-display=no $f ;;
 	video/*) mpv $f -quiet >/dev/null 2>&1 ;;
-	application/pdf|application/vnd*|application/epub*) zathura $fx >/dev/null 2>&1 ;;
-        *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
+	application/pdf|application/epub*) zathura $fx >/dev/null 2>&1 ;;
+        *) for f in $fx; do setsid -f xdg-open $f >/dev/null 2>&1; done;;
     esac
 }}
 
