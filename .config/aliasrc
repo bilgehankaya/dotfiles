@@ -65,3 +65,5 @@ alias bil="ssh root@www.bilgehankaya.xyz"
 
 # Alias for dot files
 alias dot='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+
+alias mysql='sudo mysql -u root -p --auto-rehash'
