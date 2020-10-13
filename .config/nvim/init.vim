@@ -141,5 +141,8 @@ if &diff
     highlight! link DiffText MatchParen
 endif
 
+vmap < <gv
+vmap > >gv
+
 " Toggle hardmode
 nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>

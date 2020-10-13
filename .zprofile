@@ -92,7 +92,7 @@ ex=:\
 *.opus=:\
 *.ogg=:\
 *.m4a=:\
-*.flac=:\
+*.flac=:\
 *.mkv=:\
 *.mp4=:\
 *.webm=:\
@@ -120,6 +120,16 @@ ex=:\
 *.java=:\
 *.py=:\
 *.ipynb=:\
+*.cpp=:\
+*.c++=:\
+*.h=:\
+*.cp=:\
+*.c=:\
+*.dif=:\
+*.db=:\
+*.sql=:\
+*.dump=:\
+*.sh=:\
 "
 
 [ "$(tty)" = "/dev/tty1" ] && ! pidof Xorg >/dev/null 2>&1  && exec startx "$XINITRC"

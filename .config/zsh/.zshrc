@@ -75,7 +75,6 @@ autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
 export PATH=$PATH:$HOME/anaconda3/bin
-# export PATH=$PATH:$HOME/.local/bin/bilgescripts
 export PATH="$HOME/.emacs.d/bin:$PATH"
 
 alias e="cd /mnt/EXTRA ; exa --group-directories-first"
@@ -90,9 +89,6 @@ alias Y="cd /mnt/EXTRA/Youtube ; exa --group-directories-first"
 alias t="cd '/mnt/EXTRA/TV Shows/' ; exa --group-directories-first"
 alias T="cd /mnt/EXTRA/Torrent ; exa --group-directories-first"
 alias B="cd /mnt/EXTRA/Books ; exa --group-directories-first"
-
-
-
 
 # Load syntax highlighting; should be last.
 source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
