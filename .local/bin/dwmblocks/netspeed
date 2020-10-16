@@ -10,8 +10,14 @@ logfile=/dev/shm/netspeed
 [ -f "$logfile" ] || echo "0 0" > $logfile
 read -r rxprev txprev < $logfile
 
-rxcurr=`cat /sys/class/net/wlan0/statistics/rx_bytes`
-txcurr=`cat /sys/class/net/wlan0/statistics/tx_bytes`
+for index in $(ls /sys/class/net/)
+do
+    rxcurr=$((rxcurr + `cat /sys/class/net/$index/statistics/rx_bytes`))
+    txcurr=$((txcurr + `cat /sys/class/net/$index/statistics/tx_bytes`))
+done
+
+# rxcurr=`cat /sys/class/net/wlan0/statistics/rx_bytes`
+# txcurr=`cat /sys/class/net/wlan0/statistics/tx_bytes`
 
 tx=$((txcurr-txprev))
 rx=$((rxcurr-rxprev))

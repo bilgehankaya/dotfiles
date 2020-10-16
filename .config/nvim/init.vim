@@ -20,7 +20,8 @@ Plug 'tpope/vim-commentary'
 Plug 'kovetskiy/sxhkd-vim'
 Plug 'ap/vim-css-color'
 Plug 'airblade/vim-gitgutter'
-Plug 'wikitopian/hardmode'
+Plug 'davidhalter/jedi-vim'
+Plug 'plasticboy/vim-markdown'
 call plug#end()
 
 set bg=light
@@ -29,8 +30,17 @@ set mouse=a
 set nohlsearch
 set clipboard+=unnamedplus
 
+"" Tabs. May be overridden by autocmd rules
+set tabstop=4
+set softtabstop=0
+set shiftwidth=4
+set expandtab
+set omnifunc=jedi#completions
+let g:jedi#force_py_version = '3'
+let g:jedi#usages_command = "<leader>m"
 " Some basics:
-	nnoremap c "_c
+
+nnoremap c "_c
 	set nocompatible
 	filetype plugin on
 	syntax on

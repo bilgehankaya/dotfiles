@@ -1,6 +1,6 @@
 #!/bin/bash
 
-declare options=("bspwm
+options="bspwm
 alacritty
 dmenu
 dunst
@@ -25,9 +25,9 @@ tmux
 xinitrc
 xprofile
 zprofile
-quit")
+quit"
 
-choice=$(echo -e "${options[@]}" | dmenu -i -p 'Edit config file: ')
+choice=$(printf "$options" | dmenu -i -p 'Edit config file: ')
 
 case "$choice" in
 	quit)
