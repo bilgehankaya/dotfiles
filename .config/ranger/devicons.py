@@ -171,7 +171,7 @@ dir_node_exact_matches = {
 # English
     'Desktop'                          : '',
     'Documents'                        : '',
-    'Downloads'                        : '',
+    'Downloads'                        : '',
     'Dropbox'                          : '',
     'Music'                            : '',
     'Pictures'                         : '',

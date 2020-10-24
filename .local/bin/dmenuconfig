@@ -106,7 +106,7 @@ case "$choice" in
 		choice="$HOME/.config/tmux/tmux.conf"
 	;;
 	xinitrc)
-		choice="$HOME/.config/X11/xinitrc"
+		choice="$HOME/.xinitrc"
 	;;
 	xprofile)
 		choice="$HOME/.xprofile"

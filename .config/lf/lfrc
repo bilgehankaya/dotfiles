@@ -11,11 +11,11 @@ set hiddenfiles ".*:*.idx:*.srt:*.sub"
 # cmds/functions
 cmd open ${{
     case $(file --mime-type $f -b) in
-	image/vnd.djvu|application/pdf|application/octet-stream) zathura $fx >/dev/null 2>&1 ;;
+	image/vnd.djvu|application/pdf) zathura $fx >/dev/null 2>&1 ;;
         application/json|text/*) $EDITOR $fx;;
 	image/x-xcf|image/svg+xml) setsid -f gimp $f >/dev/null 2>&1 ;;
 	image/*) xdg-open "$f" ;;
-	audio/*) mpv --audio-display=no $f ;;
+	audio/*|application/octet-stream) mpv --audio-display=no $f ;;
 	video/*) mpv $f -quiet >/dev/null 2>&1 ;;
 	application/pdf|application/epub*) zathura $fx >/dev/null 2>&1 ;;
         *) for f in $fx; do setsid -f xdg-open $f >/dev/null 2>&1; done;;
@@ -104,8 +104,12 @@ map ch chmod
 map bg $setbg $f
 
 # Rename file/folder
-map r rename
-map <f-2> rename
+map <f-2> rename # at very end
+map A rename # same as F2
+map I push A<c-a> # at the very beginning
+map i push A<a-b><a-b><a-f> # before extention
+map a push A<a-b> # after extention
+
 
 # Unselect
 map u unselect
@@ -115,6 +119,7 @@ map <c-c> dragon
 
 # Reload lf
 map <c-r> reload
+map r reload
 
 # escape
 map <esc>  cmd-escape

@@ -1,8 +1,37 @@
-#!/bin/zsh
+#!/bin/sh
 
-curr="$(mpc status)"
-artist="$(echo $curr | head -n 1| cut -d '-' -f1)"
-song="$(echo $curr | head -n 1 | cut -d '-' -f2)"
-time="$(echo $curr | grep "%)" | awk '{ print $3 }')"
-[ "$(mpc current)" ] && notify-send -u  low " $artist" "$song\n $time" -i "~/.config/dunst/music.jpg" ||
-	notify-send -u  low " Music Player" " Empty playlist!" -i "~/.config/dunst/music.jpg"
+loadmpc(){
+    metadata="$(mpc status)"
+    artist=$(echo -n "$metadata" | head -n 1| cut -d '-' -f1)
+    title=$(echo -n "$metadata" | head -n 1 | cut -d '-' -f2)
+    pos=$(echo -n "$metadata" | grep "%)" | awk '{ print $3 }')
+    imgloc="~/.config/dunst/music.jpg"
+}
+
+loadspotify(){
+    metadata="$(playerctl --player spotifyd metadata -f '{{artist}}|{{title}}|{{duration(position)}}/{{duration(mpris:length)}}')"
+    artist="$(echo $metadata | cut -d '|' -f1)"
+    title="$(echo $metadata | cut -d '|' -f2)"
+    pos="$(echo $metadata | cut -d '|' -f3)"
+    imgloc="~/.config/dunst/spotify.png"
+}
+
+noplaylist(){
+     notify-send -u  low " Music Player" " Empty playlist!" -i "~/.config/dunst/music.jpg"
+     exit
+}
+
+notify(){
+     notify-send -u  low " $artist" "$title\n $pos" -i "$imgloc"
+}
+
+
+# if [ "$(playerctl --player spotifyd status)" = "Playing" ]; then
+#     loadspotify
+# else
+#     [ "$(mpc current)" ] && loadmpc || noplaylist
+# fi
+
+[ "$(mpc current)" ] && loadmpc || noplaylist
+
+notify
