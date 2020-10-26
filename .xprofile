@@ -5,8 +5,8 @@
 dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
 mpd &			# music player daemon-you might prefer it as a service though
 setbg &			# set the background with the `setbg` script
-# picom -b &		# picom for transparency
-xcompmgr &		# xcompmgr for transparency
+picom &		# picom for transparency
+# xcompmgr &		# xcompmgr for transparency
 setxkbmap -option caps:escape & # caps key is deactivated
 dunst &			# dunst for notifications
 xrdb ~/.config/Xresources & # Loads color scheme
