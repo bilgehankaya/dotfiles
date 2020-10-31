@@ -44,26 +44,28 @@ alias chan="youtube-dl -o '/mnt/EXTRA/%(uploader)s/%(title)s.%(ext)s' -f 'bestvi
 alias pl="youtube-dl -o '/mnt/EXTRA/%(uploader)s/%(playlist_title)s/%(title)s.%(ext)s' -f 'bestvideo[height<=1080]+bestaudio/best[height<=1080]' -v -i --geo-bypass"
 alias mp="youtube-dl -o '~/Audio/%(title)s.%(ext)s' -i --extract-audio --audio-format mp3 --audio-quality 0"
 
-alias caps="xdotool key Caps_Lock"
+alias caps='xdotool key Caps_Lock'
 #Screenlight
-alias x="xbacklight -set "
+alias x='xbacklight -set '
 
 #Dictionary
-alias s="sdcv -n --color"
+alias s='sdcv -n --color'
 
 # laziness
-alias jup="jupyter notebook"
+alias jup='jupyter notebook'
 
 #Connect to headphones
-alias bl="bluetoothctl connect 88:D0:39:6C:A5:0E"
+alias bl='bluetoothctl connect 88:D0:39:6C:A5:0E'
 
 # Get country code
-alias myip="curl ifconfig.co/country-iso"
+alias myip='curl ifconfig.co/country-iso'
 
 # SSH into
-alias bil="ssh root@www.bilgehankaya.xyz"
+alias bil='ssh root@www.bilgehankaya.xyz'
 
 # Alias for dot files
 alias dot='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 
 alias mysql='sudo mysql -u root -p --auto-rehash'
+
+alias rpul='killall pulseaudio; sudo -u bilge pulseaudio --start'
