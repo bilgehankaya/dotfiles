@@ -129,7 +129,7 @@ map br $vimv $fx
 map cW $vimv $fx
 
 # Fuzzy finder
-map <c-f> $setsid -f lf -remote "send $id select '$(fzf)'"
+map <c-f> $lf -remote "send $id select '$(fzf)'"
 
 # Navigation
 map gg top
@@ -139,9 +139,6 @@ map f search
 
 # Download subtitles
 map S sub
-
-# Play nintendo game boy advanced
-map P $visualboyadvance-m $f
 
 # Home
 map gh cd ~
