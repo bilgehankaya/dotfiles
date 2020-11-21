@@ -20,6 +20,7 @@ Plug 'ap/vim-css-color'
 Plug 'airblade/vim-gitgutter'
 Plug 'davidhalter/jedi-vim'
 Plug 'plasticboy/vim-markdown'
+Plug 'jelera/vim-javascript-syntax'
 call plug#end()
 
 set bg=light

@@ -37,7 +37,7 @@ alias \
 
 
 #youtube-dl aliases
-alias y="youtube-dl -o '~/%(title)s.%(ext)s' -v -f 'bestvideo[height<=1080]+bestaudio/best[height<=1080]' -i --geo-bypass --merge-output-format mp4"
+alias y="youtube-dl -o '~/%(title)s.%(ext)s' -v -f 'bestvideo[height<=1080]+bestaudio/best[height<=1080]' -i --geo-bypass --merge-output-format mp4 --write-auto-sub --convert-subs srt --write-sub"
 alias yt="youtube-dl -o '/mnt/EXTRA/Youtube/%(title)s.%(ext)s' -f 'bestvideo[height<=1080]+bestaudio/best[height<=1080]' -v  --dateafter now-2days --download-archive Documents/youtube/archive.txt -i --playlist-end 2 -a ~/Documents/youtube/yttt.txt -w --geo-bypass"
 alias yta="youtube-dl --geo-bypass --add-metadata -i -x --audio-format mp3 --audio-quality 0 -o '/mnt/EXTRA/Albums/%(playlist_title)s/%(title)s.%(ext)s' "
 alias chan="youtube-dl -o '/mnt/EXTRA/%(uploader)s/%(title)s.%(ext)s' -f 'bestvideo[height<=1080]+bestaudio/best[height<=1080]' -v -i --geo-bypass"
@@ -61,7 +61,7 @@ alias bl='bluetoothctl connect 88:D0:39:6C:A5:0E'
 alias myip='curl ifconfig.co/country-iso'
 
 # SSH into
-alias bil='ssh root@www.bilgehankaya.xyz'
+alias bil='ssh bil'
 
 # Alias for dot files
 alias dot='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'

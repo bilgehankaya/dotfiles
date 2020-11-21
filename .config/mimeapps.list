@@ -31,3 +31,4 @@ x-scheme-handler/nntp=userapp-Thunderbird-T0Z7R0.desktop;
 x-scheme-handler/feed=userapp-Thunderbird-4Q39R0.desktop;
 application/rss+xml=userapp-Thunderbird-4Q39R0.desktop;
 application/x-extension-rss=userapp-Thunderbird-4Q39R0.desktop;
+video/mp4=vlc.desktop;mpv.desktop;

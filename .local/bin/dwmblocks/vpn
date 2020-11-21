@@ -5,11 +5,11 @@ case $BLOCK_BUTTON in
 	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
-name="header" # Vpn name
+name="headerPC" # Vpn name
 stat="$(pgrep -x openvpn)"
 
 case $1 in
-	--status|-s) [ $stat ] && echo " DE" ;;
+	--status|-s) [ $stat ] && echo " GB" ;;
 	--toggle|-t) [ $stat ] && nmcli connection down $name || nmcli connection up $name
 		     sleep 1 ; [ "$(pgrep -x dwm)" ] && kill -53 $(pidof dwmblocks) ;;
 esac

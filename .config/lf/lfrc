@@ -16,7 +16,7 @@ cmd open ${{
 	image/x-xcf|image/svg+xml) setsid -f gimp $f >/dev/null 2>&1 ;;
 	image/*) xdg-open "$f" ;;
 	audio/*|application/octet-stream) mpv --audio-display=no $f ;;
-	video/*) mpv $f -quiet >/dev/null 2>&1 ;;
+	video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
 	application/pdf|application/epub*) zathura $fx >/dev/null 2>&1 ;;
         *) for f in $fx; do setsid -f xdg-open $f >/dev/null 2>&1; done;;
     esac
@@ -44,7 +44,16 @@ cmd unarchive ${{
       *.tar.gz) tar -xzvf "$f" ;;
       *.tar.bz2) tar -xjvf "$f" ;;
       *.tar) tar -xvf "$f" ;;
-      *.rar) unrar l "$1";;
+      *.rar) unrar x -ad "$f";;
+      *.7z) 7z x "$f" ;;
+      *) echo "Unsupported format" ;;
+  esac
+}}
+
+cmd play ${{
+  case "$f" in
+      *.gba) visualboyadvance-m "$f" >/dev/null 2>&1 ;;
+      *.nes) setsid -f nestopia "$f" >/dev/null 2>&1 ;;
       *) echo "Unsupported format" ;;
   esac
 }}
@@ -141,7 +150,7 @@ map f search
 map S sub
 
 # Play nintendo game boy advanced
-map P $visualboyadvance-m $f
+map P play
 
 # Home
 map gh cd ~
@@ -154,11 +163,11 @@ map gD cd ~/Documents
 map ga cd ~/Audio
 map gr cd ~/repos
 map gP cd ~/Phone
-map gl cd ~/.local
+map gl cd ~/Lectures
+map gp cd ~/Projects
 
 # HDD
 map ge cd /mnt/EXTRA
-map gp cd /mnt/EXTRA/Projects
 map gm cd /mnt/EXTRA/Movies
 map gM cd /mnt/EXTRA/Music
 map gy cd /mnt/EXTRA/Youtube
